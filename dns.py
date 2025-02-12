@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from IPython.display import display
+
 
 
 st.title('Prevencion de DSN')
@@ -34,9 +34,6 @@ if archivo is not None:
     # Filtrar todas las filas que tienen esos números de operación (con o sin "Extorno")
     filas_a_eliminar = duplicados[duplicados['Nº operación'].isin(numeros_con_extorno)]
 
-    # Mostrar la tabla con las filas eliminadas en el mismo Colab
-    import IPython.display as display
-    display.display(filas_a_eliminar)
 
     # Eliminar estas filas del DataFrame original
     df_filtrado = df[~df['Nº operación'].isin(numeros_con_extorno)]
