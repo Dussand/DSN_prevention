@@ -33,7 +33,8 @@ if archivo is not None:
 
     # Filtrar todas las filas que tienen esos números de operación (con o sin "Extorno")
     filas_a_eliminar = duplicados[duplicados['Nº operación'].isin(numeros_con_extorno)]
-
+    
+    st.dataframe(filas_a_eliminar)
 
     # Eliminar estas filas del DataFrame original
     df_filtrado = df[~df['Nº operación'].isin(numeros_con_extorno)]
@@ -46,6 +47,8 @@ if archivo is not None:
 
     st.write('EECC del banco')
     st.dataframe(df_filtrado)
+
+    st.write()
 
 
     # # Guardar el archivo modificado
