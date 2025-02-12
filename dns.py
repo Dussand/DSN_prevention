@@ -33,7 +33,7 @@ if archivo is not None:
 
     # Filtrar todas las filas que tienen esos números de operación (con o sin "Extorno")
     filas_a_eliminar = duplicados[duplicados['Nº operación'].isin(numeros_con_extorno)]
-    
+
     st.dataframe(filas_a_eliminar)
 
     # Eliminar estas filas del DataFrame original
@@ -45,10 +45,10 @@ if archivo is not None:
     # ---- Eliminar las filas donde PSP_TIN no empieza con 250 o no tiene 12 dígitos ----
     df_filtrado = df_filtrado[df_filtrado['PSP_TIN'].str.match(r'^250\d{9}$', na=False)]
 
-    st.write('EECC del banco')
-    st.dataframe(df_filtrado)
+    # st.write('EECC del banco')
+    # st.dataframe(df_filtrado)
 
-    st.write()
+    # st.write()
 
 
     # # Guardar el archivo modificado
