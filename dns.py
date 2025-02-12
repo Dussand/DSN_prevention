@@ -1,16 +1,18 @@
 import streamlit as st
 import pandas as pd
-
+from datetime import datetime, timedelta
 
 
 st.title('Prevencion de DSN')
 st.divider()
 
+#seccion para subir el EECC del banco en formato excel
 archivo = st.file_uploader('Subir el EECC del banco', type = ['xlsx', 'xls'])
 
+#condicional al leer el excel
 if archivo is not None:
-    df = pd.read_excel(archivo, skiprows= 7)
-    df['Descripción operación'] = df['Descripción operación'].str.strip()
+    df = pd.read_excel(archivo, skiprows= 7) #se lee el excel saltando 7 filas
+    df['Descripción operación'] = df['Descripción operación'].str.strip() 
     df['Nº operación'] = df['Nº operación'].astype(str).str.strip()
 
         # ---- Nueva columna con el código extraído ----
@@ -34,7 +36,23 @@ if archivo is not None:
     # Filtrar todas las filas que tienen esos números de operación (con o sin "Extorno")
     filas_a_eliminar = duplicados[duplicados['Nº operación'].isin(numeros_con_extorno)]
 
+    #mostramos el df con los extornos
     st.dataframe(filas_a_eliminar)
+
+    #almacenamos el df exportado en CSV para que se descargue al presionar el boto
+    csv = filas_a_eliminar.to_csv(index=False).encode('utf-8')
+
+    # Ajustar la hora a GMT-5
+    utc_now = datetime.utcnow()
+    gmt_5_now = utc_now - timedelta(hours=5)
+    timestamp = gmt_5_now.strftime("%d%m%H%M")
+
+    #boton para descargar el csv
+    descargar = st.download_button(
+        label = 'Descargar archivo',
+        data = csv,
+        file_name = f'BBDD{timestamp}.csv'
+    )
 
     # Eliminar estas filas del DataFrame original
     df_filtrado = df[~df['Nº operación'].isin(numeros_con_extorno)]
@@ -62,13 +80,13 @@ if archivo is not None:
 
         # Especificar los nombres de los archivos previamente subidos a Colab
 
-file_2_name = st.file_uploader('Subir archivo de metabaes', type = ['xlsx', 'xls'] )
-#file_2_name = "2_1_procesopago__detalle_2025-02-12T01_07_44.546161693Z.xlsx"  # Archivo de metabase
+file_2_name = st.file_uploader('Subir archivo de metabaes', type = ['xlsx', 'xls'] ) #archivo del metabase
 
 if file_2_name is not None:
     # Leer los archivos Excel
     data_2 = pd.read_excel(file_2_name)
     data_2['psp_tin'] = data_2['psp_tin'].astype(str)
+    
     # Mostrar columnas de los archivos para confirmar que las columnas 8 y 27 están disponibles
     # st.write("Columnas del archivo 1:")
     # st.write(df_filtrado.columns)
