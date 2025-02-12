@@ -6,7 +6,7 @@ import pandas as pd
 st.title('Prevencion de DSN')
 st.divider()
 
-archivo = st.file_uploader('Sube el EECC del banco', type = ['xlsx', 'xls'])
+archivo = st.file_uploader('Subir el EECC del banco', type = ['xlsx', 'xls'])
 
 if archivo is not None:
     df = pd.read_excel(archivo, skiprows= 7)
