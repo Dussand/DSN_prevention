@@ -117,6 +117,37 @@ if file_2_name is not None:
 
     st.dataframe(data_not_in_2)
 
+    # #almacenamos el data_not_in_2 exportado en CSV para que se descargue al presionar el boto
+    # csv_dsn = data_not_in_2.to_csv(index=False, sep=',', lineterminator = '\n').encode('utf-8')
+
+    # #boton para descargar el csv de data_not_in_2
+    # dsn_descargar = st.download_button(
+    #     label = 'Descargar DSN encontrados',
+    #     data = csv_dsn,
+    #     file_name = f'DSN_encontrados.csv'
+    # )
+
+    import io
+
+    # Crear un buffer de memoria para el archivo Excel
+    output = io.BytesIO()
+
+    # Exportar DataFrame a Excel sin índice
+    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        data_not_in_2.to_excel(writer, index=False, sheet_name='Hoja1')
+
+    # Obtener el contenido del archivo en bytes
+    excel_data = output.getvalue()
+
+    # Botón para descargar el archivo Excel en Streamlit
+    dsn_descargar = st.download_button(
+        label='Descargar DSN encontrados (Excel)',
+        data=excel_data,
+        file_name='DSN_encontrados.xlsx',
+        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+
+
     # # Exportar resultados a un archivo Excel
     # output_file = "DSN encontrados1200.xlsx"
     # data_not_in_2.to_excel(output_file, index=False)
