@@ -16,7 +16,7 @@ if archivo is not None:
     df['Nº operación'] = df['Nº operación'].astype(str).str.strip()
 
         # ---- Nueva columna con el código extraído ----
-    # Usar expresiones regulares para extraer códigos que empiezan con 250
+    # Usar expresiones regulares para extraer códigos que empiezan con 251
     df['PSP_TIN'] = df['Descripción operación'].str.extract(r'(251\d{9})', expand=False)
 
     # ---- Nueva columna con formato JSON ----
@@ -60,7 +60,7 @@ if archivo is not None:
     # ---- Eliminar las filas duplicadas en la columna 'PSPTIN' ----
     df_filtrado = df_filtrado.drop_duplicates(subset=['PSP_TIN'])
 
-    # ---- Eliminar las filas donde PSP_TIN no empieza con 250 o no tiene 12 dígitos ----
+    # ---- Eliminar las filas donde PSP_TIN no empieza con 251 o no tiene 12 dígitos ----
     df_filtrado = df_filtrado[df_filtrado['PSP_TIN'].str.match(r'^251\d{9}$', na=False)]
 
     # st.write('EECC del banco')
