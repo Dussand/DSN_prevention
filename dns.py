@@ -17,7 +17,7 @@ if archivo is not None:
 
         # ---- Nueva columna con el código extraído ----
     # Usar expresiones regulares para extraer códigos que empiezan con 250
-    df['PSP_TIN'] = df['Descripción operación'].str.extract(r'(250\d{9})', expand=False)
+    df['PSP_TIN'] = df['Descripción operación'].str.extract(r'(251\d{9})', expand=False)
 
     # ---- Nueva columna con formato JSON ----
     # Crear una columna con el formato JSON requerido
