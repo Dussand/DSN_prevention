@@ -61,7 +61,7 @@ if archivo is not None:
     df_filtrado = df_filtrado.drop_duplicates(subset=['PSP_TIN'])
 
     # ---- Eliminar las filas donde PSP_TIN no empieza con 250 o no tiene 12 dígitos ----
-    df_filtrado = df_filtrado[df_filtrado['PSP_TIN'].str.match(r'^250\d{9}$', na=False)]
+    df_filtrado = df_filtrado[df_filtrado['PSP_TIN'].str.match(r'^251\d{9}$', na=False)]
 
     # st.write('EECC del banco')
     # st.dataframe(df_filtrado)
