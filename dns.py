@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 
 
 st.title('Prevencion de DSN')
+st.subheader('Herramienta para la detección de DSN en EECC del banco')
+st.write('Esta herramienta permite detectar DSN en los EECC del banco y compararlos con los metabase.') 
 st.divider()
 
 #seccion para subir el EECC del banco en formato excel
